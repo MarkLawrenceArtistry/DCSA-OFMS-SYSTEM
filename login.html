@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login - Feedback System</title>
+    <link rel="icon" type="image/x-icon" href="images/dcsa.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="body--public-page body--login-form"> 
+    <header class="public-navbar">
+        <div class="public-navbar__container">
+            <a href="index.html" class="public-navbar__brand">
+                <img src="images/your-logo.png" alt="Online Feedback Management System Logo" class="main-header__logo">
+            </a>
+            <button id="navbarToggle" class="public-navbar__toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span class="public-navbar__toggle-icon"></span>
+                <span class="public-navbar__toggle-icon"></span>
+                <span class="public-navbar__toggle-icon"></span>
+            </button>
+            <nav id="navbarMenu" class="public-navbar__menu">
+                <ul class="public-navbar__menu-list">
+                    <li class="public-navbar__menu-item"><a href="index.html" class="public-navbar__menu-link">Home</a></li>
+                    <li class="public-navbar__menu-item"><a href="about.html" class="public-navbar__menu-link">About</a></li>
+                    <li class="public-navbar__menu-item"><a href="signup.html" class="public-navbar__menu-link">Register</a></li>
+                    <li class="public-navbar__menu-item dropdown">
+                        <a href="#" class="public-navbar__menu-link">Login ▾</a>
+                        <ul class="public-navbar__dropdown-menu">
+                            <li><a href="login.html">Student Login</a></li>
+                            <li><a href="alumni-login.html">Alumni Login</a></li>
+                            <li><a href="admin-login.html">Staff Login</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="auth-page-wrapper">
+        <div class="signup-layout">
+             <aside class="signup-layout__aside">
+                <div class="signup-layout__aside-content">
+                    <a href="index.html" class="signup-layout__aside-logo-link">
+                        <img src="images/your-logo.png" alt="DCSA Logo" class="signup-layout__aside-logo">
+                    </a>
+                    <h1 class="signup-layout__aside-title">Student Portal</h1>
+                    <p class="signup-layout__aside-description">
+                        Log in to share your feedback, view updates, and contribute to improving DCSA Caloocan.
+                    </p>
+                </div>
+                <div class="signup-layout__aside-image-container">
+                    <img src="images/login.png" alt="DCSA Students Engaging" class="signup-layout__aside-image">
+                    
+                </div>
+            </aside>
+
+            <section class="signup-layout__form-area">
+                <form id="loginForm" class="auth-form">
+                    <h2 class="auth-form__title">Student Login</h2>
+                    <div id="loginError" class="auth-form__message--error error-message" style="display: none;"></div>
+                    <div id="lockoutMessage" class="auth-form__message--info info-message" style="display: none;"></div>
+                    <div class="auth-form__group">
+                        <label for="loginIdentifier" class="auth-form__label">Student ID:</label>
+                        <input type="text" id="loginIdentifier" class="auth-form__input" required>
+                    </div>
+                    <div class="auth-form__group">
+                        <label for="loginPassword" class="auth-form__label">Password:</label>
+                        <div class="auth-form__password-wrapper">
+                            <input type="password" id="loginPassword" class="auth-form__input" required>
+                            <button type="button" class="auth-form__password-toggle toggle-password" onclick="togglePasswordVisibility('loginPassword', this)">Show</button>
+                        </div>
+                    </div>
+                    <p class="auth-form__forgot-link"><a href="forgot-password.html?type=student">Forgot Password?</a></p>
+                    <button type="submit" id="loginButton" class="btn btn--primary btn--block">Login</button>
+                    <p class="auth-form__switch">Don't have an account? <a href="signup.html">Sign up here</a></p>
+                    <p class="auth-form__switch">Are you an alumni? <a href="alumni-login.html">Sign in here</a></p>
+                </form>
+            </section>
+        </div>
+    </main>
+    
+    <footer class="main-footer">
+        <div class="main-footer__container container">
+            <p class="main-footer__text">© 2025 DCSA Caloocan - Online Feedback Management System. All rights reserved.</p>
+            <p class="main-footer__contact contact-info">
+                If your feedback or account was unfairly deleted/handled, please contact <a href="mailto:dcsa-cal-fms@gmail.com">dcsa-cal-fms@gmail.com</a>.
+            </p>
+        </div>
+    </footer>
+    
+    <div id="genericModal" class="modal">
+        <div class="modal__content">
+            <span class="modal__close-button" onclick="closeModal('genericModal')">×</span>
+            <h3 id="modalTitle" class="modal__title">Modal Title</h3>
+            <p id="modalMessage" class="modal__message">Modal message goes here.</p>
+            <div id="modalActions" class="modal__actions"></div>
+             <div id="modalPromptInputArea" class="modal__prompt-area" style="display: none;">
+                 <label id="modalPromptLabel" class="modal__prompt-label" for="modalPromptInput">Prompt:</label>
+                 <textarea id="modalPromptInput" class="modal__prompt-input" rows="3"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

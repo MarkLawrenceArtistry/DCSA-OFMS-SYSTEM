@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Settings - Feedback System</title>
+    <link rel="icon" type="image/x-icon" href="../images/dcsa.png">
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body class="body--student-page"> 
+    <div class="layout layout--student">
+        <aside class="sidebar">
+            <div class="sidebar__header">
+                <a href="../index.html">
+                    <img src="../images/your-logo.png" alt="Online Feedback Management System Logo" class="sidebar__logo">
+                </a>
+            </div>
+            <nav class="sidebar__nav">
+                <ul class="sidebar__nav-list">
+                    <li class="sidebar__nav-item">
+                        <button class="sidebar__accordion-toggle active">Navigation</button> 
+                        <ul class="sidebar__accordion-content active">
+                            <li><a href="student-dashboard.html" class="sidebar__nav-link"><img src="../images/icons/dashboard-black.png" alt="" class="sidebar__nav-icon">Dashboard</a></li>
+                            <li><a href="submit-feedback.html" class="sidebar__nav-link"><img src="../images/icons/submit-feedback-black.png" alt="" class="sidebar__nav-icon">Submit Feedback</a></li>
+                            <li><a href="feedback-history.html" class="sidebar__nav-link"><img src="../images/icons/history-black.png" alt="" class="sidebar__nav-icon">Feedback History</a></li>
+                            <li><a href="student-settings.html" class="sidebar__nav-link sidebar__nav-link--active"><img src="../images/icons/settings-red.png" alt="" class="sidebar__nav-icon">Settings</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar__footer">
+                Logged in as: <strong id="studentUsernameDisplay" class="sidebar__user-name">Student</strong> 
+                <a href="#" id="studentLogoutLink" class="btn btn--small btn--danger sidebar__logout-link">Logout</a>
+                <button id="darkModeToggle" class="btn btn--small btn--secondary sidebar__theme-toggle">
+                    Toggle Dark Mode
+                </button>
+            </div>
+        </aside>
+
+        <main class="content">
+            <header class="content__header">
+                <span id="sidebarToggle" class="content__sidebar-toggle">≡</span>
+                <h1 class="content__title">Account Settings</h1>
+            </header>
+
+            <section class="content__body">
+                <div class="form">
+                    <h3>Security Question</h3>
+                    <p id="displaySecurityQuestion"></p>
+                </div>
+                <form id="studentInfoChangeForm" class="form">
+                    <h3>Request Information Change</h3>
+                    <div id="infoChangeFormInfo" class="form__message form__message--info info-message" style="display: none;"></div>
+                    <div id="infoChangeFormError" class="form__message form__message--error error-message" style="display: none;"></div>
+            
+                    <p>Changes to your Full Name or Course require administrator approval.</p>
+            
+                    <div class="form__group">
+                        <label class="form__label">Current Student ID:</label>
+                        <input type="text" id="studentSettingsId" class="form__input" readonly disabled>
+                    </div>
+                    <div class="form__group">
+                        <label for="studentSettingsFullName" class="form__label">Full Name:</label>
+                        <input type="text" id="studentSettingsFullName" class="form__input" required>
+                        <small class="form__hint">Current: <span id="currentFullName"></span></small>
+                    </div>
+                    <div class="form__group">
+                        <label for="studentSettingsCourse" class="form__label">Course:</label>
+                        <select id="studentSettingsCourse" class="form__select" required>
+                            <option value="" disabled selected>Select your course/strand</option>
+                            
+                        </select>
+                         <small class="form__hint">Current: <span id="currentCourse"></span></small>
+                    </div>
+                    <button type="submit" id="requestChangeButton" class="btn btn--primary">Request Change</button>
+                </form>
+            
+                <hr class="separator">
+            
+                <form id="studentChangePasswordForm" class="form">
+                    <h3>Change Password</h3>
+                    <div id="changePasswordError" class="form__message form__message--error error-message" style="display: none;"></div>
+                    <div class="form__group">
+                        <label for="currentPassword" class="form__label">Current Password:</label>
+                        <div class="form__password-wrapper">
+                            <input type="password" id="currentPassword" class="form__input" required>
+                            <button type="button" class="form__password-toggle toggle-password" onclick="togglePasswordVisibility('currentPassword', this)">Show</button>
+                        </div>
+                    </div>
+                    <div class="form__group">
+                        <label for="newPassword" class="form__label">New Password:</label>
+                         <div class="form__password-wrapper">
+                            <input type="password" id="newPassword" class="form__input" required>
+                             <button type="button" class="form__password-toggle toggle-password" onclick="togglePasswordVisibility('newPassword', this)">Show</button>
+                        </div>
+                         <small class="form__hint password-hint">Min 8 characters, 1 uppercase, 1 lowercase, 1 special character.</small>
+                    </div>
+                    <div class="form__group">
+                        <label for="confirmNewPassword" class="form__label">Confirm New Password:</label>
+                         <div class="form__password-wrapper">
+                            <input type="password" id="confirmNewPassword" class="form__input" required>
+                            <button type="button" class="form__password-toggle toggle-password" onclick="togglePasswordVisibility('confirmNewPassword', this)">Show</button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn--primary">Update Password</button>
+                </form>
+
+                <hr class="separator">
+                <div class="danger-zone">
+                    <h3>Danger Zone</h3>
+                    <p>Deleting your account is permanent after the 20-day deactivation period. All your feedback and profile data will be irreversibly removed.</p>
+                    <button id="studentDeleteAccountButton" class="btn btn--danger">Request Account Deletion</button>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <div class="overlay"></div>
+
+    <div id="genericModal" class="modal">
+        <div class="modal__content">
+            <span class="modal__close-button" onclick="closeModal('genericModal')">×</span>
+            <h3 id="modalTitle" class="modal__title">Modal Title</h3>
+            <p id="modalMessage" class="modal__message">Modal message goes here.</p>
+            <div id="modalActions" class="modal__actions"></div>
+             <div id="modalPromptInputArea" class="modal__prompt-area" style="display: none;">
+                 <label id="modalPromptLabel" class="modal__prompt-label" for="modalPromptInput">Prompt:</label>
+                 <textarea id="modalPromptInput" class="modal__prompt-input" rows="3"></textarea>
+            </div>
+        </div>
+    </div>
+    
+    <div id="thankYouModal" class="modal">
+        <div class="modal__content">
+            <span class="modal__close-button" onclick="closeModal('thankYouModal')">×</span>
+            <h3 class="modal__title">Thank You!</h3>
+            <p class="modal__message">Your feedback has been submitted successfully.</p> 
+            <div class="modal__actions">
+                <button class="btn btn--primary" onclick="closeModal('thankYouModal')">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+</html>

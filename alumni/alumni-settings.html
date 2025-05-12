@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni Settings - Feedback System</title>
+    <link rel="icon" type="image/x-icon" href="../images/dcsa.png">
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body class="body--alumni-page"> 
+    <div class="layout layout--alumni">
+        <aside class="sidebar">
+            <div class="sidebar__header">
+                <a href="../index.html">
+                    <img src="../images/your-logo.png" alt="Online Feedback Management System Logo" class="sidebar__logo">
+                </a>
+            </div>
+            <nav class="sidebar__nav">
+                <ul class="sidebar__nav-list">
+                    <li class="sidebar__nav-item">
+                        <button class="sidebar__accordion-toggle active">Alumni Navigation</button> 
+                        <ul class="sidebar__accordion-content active">
+                            <li><a href="alumni-dashboard.html" class="sidebar__nav-link"><img src="../images/icons/dashboard-black.png" alt="" class="sidebar__nav-icon">Dashboard</a></li>
+                            <li><a href="alumni-submit-feedback.html" class="sidebar__nav-link"><img src="../images/icons/submit-feedback-black.png" alt="" class="sidebar__nav-icon">Submit Feedback</a></li> 
+                            <li><a href="alumni-feedback-history.html" class="sidebar__nav-link"><img src="../images/icons/history-black.png" alt="" class="sidebar__nav-icon">Feedback History</a></li> 
+                            <li><a href="alumni-settings.html" class="sidebar__nav-link sidebar__nav-link--active"><img src="../images/icons/settings-red.png" alt="" class="sidebar__nav-icon">Settings</a></li> 
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar__footer">
+                Logged in as: <strong id="alumniIdentifierDisplay" class="sidebar__user-name">Alumnus</strong> 
+                <a href="#" id="alumniLogoutLink" class="btn btn--small btn--danger sidebar__logout-link">Logout</a>
+                <button id="darkModeToggle" class="btn btn--small btn--secondary sidebar__theme-toggle">
+                    Toggle Dark Mode
+                </button>
+            </div>
+        </aside>
+
+        <main class="content">
+            <header class="content__header">
+                <span id="sidebarToggle" class="content__sidebar-toggle">≡</span>
+                <h1 class="content__title">Alumni Account Settings</h1>
+            </header>
+
+            <section class="content__body">
+                <div class="form">
+                    <h3>Security Question</h3>
+                    <p id="displaySecurityQuestion"></p>
+                </div>
+                <form id="alumniChangePasswordForm" class="form"> 
+                    <h3>Change Password</h3>
+                    <div id="alumniChangePasswordError" class="form__message form__message--error error-message" style="display: none;"></div> 
+                    
+                    <div class="form__group">
+                        <label for="alumniCurrentPassword" class="form__label">Current Password:</label>
+                        <div class="form__password-wrapper">
+                            <input type="password" id="alumniCurrentPassword" class="form__input" required> 
+                            <button type="button" class="form__password-toggle toggle-password" onclick="togglePasswordVisibility('alumniCurrentPassword', this)">Show</button> 
+                        </div>
+                    </div>
+                    
+                    <div class="form__group">
+                        <label for="alumniNewPassword" class="form__label">New Password:</label>
+                        <div class="form__password-wrapper">
+                            <input type="password" id="alumniNewPassword" class="form__input" required> 
+                            <button type="button" class="form__password-toggle toggle-password" onclick="togglePasswordVisibility('alumniNewPassword', this)">Show</button> 
+                        </div>
+                        <small class="form__hint password-hint">Min 8 characters, 1 uppercase, 1 lowercase, 1 special character.</small>
+                    </div>
+                    
+                    <div class="form__group">
+                        <label for="alumniConfirmNewPassword" class="form__label">Confirm New Password:</label>
+                        <div class="form__password-wrapper">
+                            <input type="password" id="alumniConfirmNewPassword" class="form__input" required> 
+                            <button type="button" class="form__password-toggle toggle-password" onclick="togglePasswordVisibility('alumniConfirmNewPassword', this)">Show</button> 
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn--primary">Update Password</button>
+                </form>
+
+                <hr class="separator"> 
+
+                <form id="alumniProfileUpdateForm" class="form">
+                    <h3>Update Profile Information</h3>
+                    <div id="alumniProfileUpdateError" class="form__message form__message--error error-message" style="display: none;"></div>
+                    <div id="alumniProfileUpdateSuccess" class="form__message form__message--success success-message" style="display: none;"></div> 
+
+                    <div class="form__group">
+                        <label class="form__label">Email Address:</label>
+                        <input type="email" id="alumniSettingsEmail" class="form__input" readonly disabled> 
+                        <small class="form__hint">Email address cannot be changed.</small>
+                    </div>
+                    <div class="form__group">
+                        <label class="form__label">Full Name:</label>
+                        <input type="text" id="alumniSettingsFullName" class="form__input" readonly disabled> 
+                        <small class="form__hint">Full name cannot be changed directly. Contact admin if incorrect.</small> 
+                    </div>
+                    <div class="form__group">
+                        <label for="alumniSettingsYearGraduated" class="form__label">Year Graduated:</label>
+                        <input type="number" id="alumniSettingsYearGraduated" class="form__input" placeholder="YYYY"> 
+                    </div>
+                    <div class="form__group">
+                        <label for="alumniSettingsCourseCompleted" class="form__label">Course Completed:</label>
+                        <input type="text" id="alumniSettingsCourseCompleted" class="form__input"> 
+                    </div>
+                    <button type="submit" class="btn btn--primary">Update Profile</button>
+                </form>
+
+                <hr class="separator">
+                <div class="danger-zone">
+                    <h3>Danger Zone</h3>
+                    <p>Deleting your account is permanent after the 20-day deactivation period. All your data will be irreversibly removed.</p>
+                    <button id="alumniDeleteAccountButton" class="btn btn--danger">Request Account Deletion</button>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <div class="overlay"></div>
+
+    <div id="genericModal" class="modal">
+        <div class="modal__content">
+            <span class="modal__close-button" onclick="closeModal('genericModal')">×</span>
+            <h3 id="modalTitle" class="modal__title">Modal Title</h3>
+            <p id="modalMessage" class="modal__message">Modal message goes here.</p>
+            <div id="modalActions" class="modal__actions"></div>
+             <div id="modalPromptInputArea" class="modal__prompt-area" style="display: none;">
+                 <label id="modalPromptLabel" class="modal__prompt-label" for="modalPromptInput">Prompt:</label>
+                 <textarea id="modalPromptInput" class="modal__prompt-input" rows="3"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div id="thankYouModal" class="modal">
+        <div class="modal__content">
+            <span class="modal__close-button" onclick="closeModal('thankYouModal')">×</span>
+            <h3 class="modal__title">Thank You!</h3>
+            <p class="modal__message">Your feedback has been submitted successfully.</p> 
+            <div class="modal__actions">
+                <button class="btn btn--primary" onclick="closeModal('thankYouModal')">OK</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../script.js"></script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Printable Feedback Report</title>
+    <link rel="icon" type="image/x-icon" href="images/dcsa.png">
+    
+    <style>
+        /* Minimal styles kept inline for printing purposes */
+        body { font-family: sans-serif; line-height: 1.4; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #eee; font-weight: bold; }
+        h1, p { text-align: center; }
+        .print-controls { text-align: center; margin-bottom: 20px; } 
+        @media print {
+            body { padding: 5px; font-size: 10pt; }
+            .print-controls { display: none; } 
+            table { page-break-inside: auto; }
+            tr { page-break-inside: avoid; page-break-after: auto; }
+            thead { display: table-header-group; }
+        }
+    </style>
+</head>
+<body class="body--print-page"> 
+    <h1>Feedback Report</h1>
+    <p>Generated on: <span id="generationDate"></span></p>
+    <p>Filters Applied: <span id="appliedFilters">N/A</span></p> 
+
+    <div class="print-controls"> 
+        <button onclick="window.print()" class="btn btn--primary">Print Report</button>
+        <button onclick="window.close()" class="btn btn--secondary">Close Window</button>
+    </div>
+
+    <div id="reportContent" class="report-content"> 
+        <p>Loading report data...</p>
+    </div>
+
+    
+    <div id="genericModal" class="modal" style="display: none;"> 
+        <div class="modal__content"> 
+            <span class="modal__close-button" onclick="closeModal('genericModal')">×</span> 
+            <h3 id="modalTitle" class="modal__title">Modal Title</h3> 
+            <p id="modalMessage" class="modal__message">Modal message goes here.</p> 
+            <div id="modalActions" class="modal__actions"></div> 
+            <div id="modalPromptInputArea" class="modal__prompt-area" style="display: none;"> 
+                <label id="modalPromptLabel" class="modal__prompt-label" for="modalPromptInput">Prompt:</label> 
+                <textarea id="modalPromptInput" class="modal__prompt-input" rows="3"></textarea> 
+            </div> 
+        </div> 
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Original script for populating report kept as is
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('generationDate').textContent = new Date().toLocaleString();
+
+            const reportDataString = sessionStorage.getItem('feedbackReportData');
+            const filterString = sessionStorage.getItem('feedbackReportFilters') || 'None';
+            document.getElementById('appliedFilters').textContent = filterString;
+
+            const reportContentDiv = document.getElementById('reportContent');
+            reportContentDiv.innerHTML = '';
+
+            if (!reportDataString) {
+                reportContentDiv.innerHTML = '<p class="report-content__error">Error: No report data found. Please generate the report again.</p>';
+                return;
+            }
+
+            let feedbackData = [];
+            let parseError = false;
+            let tempParsed;
+
+            try {
+               tempParsed = JSON.parse(reportDataString);
+            } catch(e) {
+               parseError = true;
+               console.error("Error parsing feedback report data:", e);
+            }
+
+            if(parseError || !Array.isArray(tempParsed)){
+                reportContentDiv.innerHTML = '<p class="report-content__error">Error: Could not load report data. Data format is invalid.</p>';
+                sessionStorage.removeItem('feedbackReportData');
+                sessionStorage.removeItem('feedbackReportFilters');
+                return;
+            }
+
+            feedbackData = tempParsed;
+
+            if (feedbackData.length === 0) {
+                reportContentDiv.innerHTML = '<p class="report-content__no-data">No feedback items match the selected criteria for this report.</p>';
+            } else {
+                const table = document.createElement('table');
+                table.className = 'table report-table'; 
+                const thead = table.createTHead();
+                thead.className = 'table__header';
+                const tbody = table.createTBody();
+                tbody.className = 'table__body';
+                const headerRow = thead.insertRow();
+                headerRow.className = 'table__row';
+
+                const headers = ['Date', 'Submitter ID', 'Submitter Name', 'Topic', 'Category', 'Status', 'Roadmap', 'Details'];
+                for(let i=0; i < headers.length; i++){
+                    const th = document.createElement('th');
+                    th.className = 'table__cell--header';
+                    th.textContent = headers[i];
+                    headerRow.appendChild(th);
+                }
+
+                for(let i=0; i < feedbackData.length; i++) {
+                    const fb = feedbackData[i];
+                    const row = tbody.insertRow();
+                    row.className = 'table__row';
+
+                    const displayId = fb.isAnonymous ? 'Anonymous' : (fb.submitterId || fb.studentId || 'N/A');
+                    const displayName = fb.isAnonymous ? 'Anonymous' : (fb.submitterName || '[User Not Found]');
+
+                    const rowData = [
+                        fb.submissionDate ? new Date(fb.submissionDate).toLocaleDateString() : 'N/A',
+                        displayId,
+                        displayName,
+                        fb.topic || 'N/A',
+                        fb.category || 'N/A',
+                        fb.status || 'N/A',
+                        fb.roadmap || 'N/A',
+                        fb.details || ''
+                    ];
+
+                    for(let j=0; j < rowData.length; j++){
+                         const cell = row.insertCell();
+                         cell.className = 'table__cell';
+                         cell.textContent = rowData[j];
+                    }
+                }
+                reportContentDiv.appendChild(table);
+            }
+
+            sessionStorage.removeItem('feedbackReportData');
+            sessionStorage.removeItem('feedbackReportFilters');
+        });
+    </script>
+</body>
+</html>

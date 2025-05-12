@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance - Feedback System</title>
+    <link rel="icon" type="image/x-icon" href="../images/dcsa.png">
+    <link rel="stylesheet" href="../style.css"> 
+    
+</head>
+<body class="body--maintenance-page"> 
+    <div class="dev-container"> 
+        <h1>Maintenance Actions</h1>
+        <p>This area is for specific system maintenance tasks.</p>
+
+        <hr>
+
+        <h2>Reset Initial Admin Setup</h2>
+        <p>
+            Clicking this button will make the initial admin credentials notice reappear on the staff login page.
+            This allows the primary 'admin' account setup process (like password change reminder)
+            to be triggered again if needed for testing or recovery scenarios.
+        </p>
+        <button id="resetAdminFlagButton" class="btn btn--warning">Reset Admin Setup Flag</button>
+
+        <div class="dev-container__logout"> 
+            <a href="#" id="devLogoutLink" class="btn btn--link">Logout</a>
+        </div>
+    </div>
+
+    <div id="genericModal" class="modal">
+        <div class="modal__content">
+            <span class="modal__close-button" onclick="closeModal('genericModal')">×</span>
+            <h3 id="modalTitle" class="modal__title">Modal Title</h3>
+            <p id="modalMessage" class="modal__message">Modal message goes here.</p>
+            <div id="modalActions" class="modal__actions"></div>
+             <div id="modalPromptInputArea" class="modal__prompt-area" style="display: none;">
+                 <label id="modalPromptLabel" class="modal__prompt-label" for="modalPromptInput">Prompt:</label>
+                 <textarea id="modalPromptInput" class="modal__prompt-input" rows="3"></textarea>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../script.js"></script>
+</body>
+</html>

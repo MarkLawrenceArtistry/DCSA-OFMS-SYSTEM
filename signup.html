@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Signup - Feedback System</title>
+    <link rel="icon" type="image/x-icon" href="images/dcsa.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="body--public-page">
+    <header class="public-navbar">
+        <div class="public-navbar__container">
+            <a href="index.html" class="public-navbar__brand">
+                <img src="images/your-logo.png" alt="Online Feedback Management System Logo" class="main-header__logo">
+            </a>
+            <button id="navbarToggle" class="public-navbar__toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span class="public-navbar__toggle-icon"></span>
+                <span class="public-navbar__toggle-icon"></span>
+                <span class="public-navbar__toggle-icon"></span>
+            </button>
+            <nav id="navbarMenu" class="public-navbar__menu">
+                <ul class="public-navbar__menu-list">
+                    <li class="public-navbar__menu-item"><a href="index.html" class="public-navbar__menu-link">Home</a></li>
+                    <li class="public-navbar__menu-item"><a href="about.html" class="public-navbar__menu-link">About</a></li>
+                    <li class="public-navbar__menu-item"><a href="signup.html" class="public-navbar__menu-link">Register</a></li>
+                    <li class="public-navbar__menu-item dropdown">
+                        <a href="#" class="public-navbar__menu-link">Login ▾</a>
+                        <ul class="public-navbar__dropdown-menu">
+                            <li><a href="login.html">Student Login</a></li>
+                            <li><a href="alumni-login.html">Alumni Login</a></li>
+                            <li><a href="admin-login.html">Staff Login</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="auth-page-wrapper">
+        <div class="signup-layout">
+            <aside class="signup-layout__aside">
+                <div class="signup-layout__aside-content">
+                    <a href="index.html" class="signup-layout__aside-logo-link">
+                        <img src="images/your-logo.png" alt="DCSA Logo" class="signup-layout__aside-logo">
+                    </a>
+                    <h1 class="signup-layout__aside-title">Join Our Community</h1>
+                    <p class="signup-layout__aside-description">
+                        Your feedback shapes the future of DCSA Caloocan. Create an account to share your insights, contribute to our growth, and help us build a better learning environment together.
+                    </p>
+                </div>
+                <div class="signup-layout__aside-image-container">
+                    <img src="images/signup.png" alt="DCSA Caloocan Students" class="signup-layout__aside-image">
+                </div>
+            </aside>
+
+            <section class="signup-layout__form-area">
+                <form id="signupForm" class="auth-form">
+                    <h2 class="auth-form__title">Create Your Account</h2>
+                    <div class="auth-form__group">
+                        <label class="auth-form__label">Register As:</label>
+                        <div class="auth-form__radio-group">
+                            <div>
+                                <input type="radio" id="userTypeStudent" name="userType" value="student" class="auth-form__radio" checked onchange="toggleSignupFields()">
+                                <label for="userTypeStudent" class="auth-form__label--inline">Student</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="userTypeAlumni" name="userType" value="alumni" class="auth-form__radio" onchange="toggleSignupFields()">
+                                <label for="userTypeAlumni" class="auth-form__label--inline">Alumni</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="auth-form__group">
+                        <label for="studentFullName" class="auth-form__label">Full Name:</label>
+                        <input type="text" id="studentFullName" name="studentFullName" class="auth-form__input" required>
+                    </div>
+
+                    <div id="studentFields">
+                        <div class="auth-form__row auth-form__row--two-cols">
+                            <div class="auth-form__group">
+                                <label for="studentId" class="auth-form__label">Student ID:</label>
+                                <input type="text" id="studentId" name="studentId" class="auth-form__input" maxlength="5">
+                            </div>
+                            <div class="auth-form__group">
+                                <label for="studentCourse" class="auth-form__label">Course/Strand:</label>
+                                <select id="studentCourse" name="studentCourse" class="auth-form__select">
+                                    <option value="" disabled selected>Select your course/strand</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="alumniFields" style="display: none;">
+                        <div class="auth-form__row auth-form__row--two-cols">
+                            <div class="auth-form__group">
+                                <label for="alumniYearGraduated" class="auth-form__label">Year Graduated:</label>
+                                <select id="alumniYearGraduated" name="alumniYearGraduated" class="auth-form__select">
+                                    <option value="" disabled selected>Select Year</option>
+                                </select>
+                            </div>
+                            <div class="auth-form__group">
+                                <label for="alumniCourseCompleted" class="auth-form__label">Course Completed:</label>
+                                <select id="alumniCourseCompleted" name="alumniCourseCompleted" class="auth-form__select">
+                                    <option value="" disabled selected>Select Course Completed</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="auth-form__group">
+                        <label for="studentEmail" class="auth-form__label">Email Address:</label>
+                        <input type="email" id="studentEmail" name="studentEmail" class="auth-form__input" required>
+                        <small class="auth-form__hint">Please use a valid email address.</small>
+                    </div>
+
+                    <div class="auth-form__row auth-form__row--two-cols">
+                        <div class="auth-form__group">
+                            <label for="studentPassword" class="auth-form__label">Password:</label>
+                            <div class="auth-form__password-wrapper">
+                                <input type="password" id="studentPassword" name="studentPassword" class="auth-form__input" required>
+                                <button type="button" class="auth-form__password-toggle toggle-password" onclick="togglePasswordVisibility('studentPassword', this)">Show</button>
+                            </div>
+                            <small class="auth-form__hint password-hint">Min 8, 1 upper, 1 lower, 1 special.</small>
+                        </div>
+                        <div class="auth-form__group">
+                            <label for="studentConfirmPassword" class="auth-form__label">Confirm Password:</label>
+                            <div class="auth-form__password-wrapper">
+                                <input type="password" id="studentConfirmPassword" name="studentConfirmPassword" class="auth-form__input" required>
+                                <button type="button" class="auth-form__password-toggle toggle-password" onclick="togglePasswordVisibility('studentConfirmPassword', this)">Show</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="auth-form__row auth-form__row--two-cols">
+                        <div class="auth-form__group">
+                            <label for="studentSecurityQuestion" class="auth-form__label">Security Question:</label>
+                            <select id="studentSecurityQuestion" name="studentSecurityQuestion" class="auth-form__select" required>
+                                <option value="" disabled selected>Select a question</option>
+                                <option value="mother_maiden_name">What is your mother's maiden name?</option>
+                                <option value="first_pet_name">What was the name of your first pet?</option>
+                                <option value="birth_city">In what city were you born?</option>
+                            </select>
+                        </div>
+                        <div class="auth-form__group">
+                            <label for="studentSecurityAnswer" class="auth-form__label">Security Answer:</label>
+                            <input type="text" id="studentSecurityAnswer" name="studentSecurityAnswer" class="auth-form__input" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn--primary btn--block">Register</button>
+                    <div class="form__group form__group--terms">
+                        <input type="checkbox" id="termsCheckbox" name="termsCheckbox" required class="form__checkbox-input">
+                        <label for="termsCheckbox" class="form__checkbox-label">
+                            I have read and accept the <a href="#" onclick="openTermsModal(event)">Terms and Conditions</a>.
+                        </label>
+                    </div>
+                    <p class="auth-form__switch">Already have an account? <a href="login.html">Login here</a></p>
+                </form>
+            </section>
+        </div>
+    </main>
+
+
+    <div id="termsModal" class="modal">
+        <div class="modal__content">
+            <span class="modal__close-button" onclick="closeModal('termsModal')">×</span>
+            <h3 class="modal__title">Terms and Conditions</h3>
+            <div class="modal__body modal__body--scrollable"> 
+                <p>Welcome to the DCSA Caloocan Feedback Management System.</p>
+                <p>By creating an account (whether as a Student or Alumnus/Alumna) and using this system, you agree to the following terms:</p>
+                <ul>
+                    <li>You must provide accurate information during registration:
+                        <ul>
+                            <li><strong>Students:</strong> Student ID, Full Name, Course/Strand, Email Address.</li>
+                            <li><strong>Alumni:</strong> Full Name, Year Graduated, Course Completed, Email Address.</li>
+                        </ul>
+                    </li>
+                    <li>Your account is for personal use only and should not be shared. Keep your password confidential.</li>
+                    <li>Feedback submitted should be constructive and related to school services, facilities, procedures, or suggestions for improvement.</li>
+                    <li>Use respectful language. Abusive, offensive, harassing, or inappropriate content is strictly prohibited and may lead to account suspension or deletion.</li>
+                    <li>The system administrators (Admin and Moderators) will review submitted feedback.</li>
+                    <li>Feedback may be marked as pending, approved, or deleted based on review criteria, relevance, and appropriateness. A reason should be provided by staff when deleting feedback or accounts.</li>
+                    <li><b>Anonymous Submissions:</b> If you choose to submit feedback anonymously, your identifying information (Student ID or Alumni Email/ID) will be hidden from Moderators and other users in most views. <strong>However, Administrators may still have access to the original submitter's identifier</strong> to ensure system integrity, investigate potential misuse, or address serious concerns if necessary.</li>
+                    <li><b>Data Privacy:</b> Your personal information provided during registration is used solely for account management and feedback association within this system. It will be handled in accordance with applicable data privacy regulations.</li>
+                    <li><b>Urgent Matters:</b> For sensitive issues such as <strong>bullying, harassment, safety concerns, discrimination, or urgent matters requiring immediate attention</strong>, please report directly to the appropriate school office (e.g., Guidance Office, Principal's Office) or use the official contact email <a href="mailto:dcsa-cal-fms@gmail.com">dcsa-cal-fms@gmail.com</a>. This feedback system may not be monitored continuously for emergencies.</li>
+                    <li>The school reserves the right to modify these terms and conditions or system functionality at any time. Continued use of the system after changes constitutes acceptance of the new terms.</li>
+                    <li>Misuse of this system, including submitting false information or malicious feedback, may result in disciplinary action or account termination.</li>
+                </ul>
+                <p>Thank you for participating and helping us improve our institution.</p>
+            </div>
+            <div class="modal__actions">
+                <button type="button" class="btn btn--primary" onclick="closeModal('termsModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <div class="main-footer__container container">
+            <p class="main-footer__text">© 2025 DCSA Caloocan - Online Feedback Management System. All rights reserved.</p>
+            <p class="main-footer__contact contact-info">
+                If your feedback or account was unfairly deleted/handled, please contact <a href="mailto:dcsa-cal-fms@gmail.com">dcsa-cal-fms@gmail.com</a>.
+            </p>
+        </div>
+    </footer>
+    
+    <div id="genericModal" class="modal">
+        <div class="modal__content">
+            <span class="modal__close-button" onclick="closeModal('genericModal')">×</span>
+            <h3 id="modalTitle" class="modal__title">Modal Title</h3>
+            <p id="modalMessage" class="modal__message">Modal message goes here.</p>
+            <div id="modalActions" class="modal__actions"></div>
+             <div id="modalPromptInputArea" class="modal__prompt-area" style="display: none;">
+                <label id="modalPromptLabel" class="modal__prompt-label" for="modalPromptInput">Prompt:</label>
+                <textarea id="modalPromptInput" class="modal__prompt-input" rows="3"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni Feedback History - Feedback System</title>
+    <link rel="icon" type="image/x-icon" href="../images/dcsa.png">
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body class="body--alumni-page"> 
+    <div class="layout layout--alumni">
+        <aside class="sidebar">
+            <div class="sidebar__header">
+                <a href="../index.html">
+                    <img src="../images/your-logo.png" alt="Online Feedback Management System Logo" class="sidebar__logo">
+                </a>
+            </div>
+            <nav class="sidebar__nav">
+                <ul class="sidebar__nav-list">
+                    <li class="sidebar__nav-item">
+                        <button class="sidebar__accordion-toggle active">Alumni Navigation</button> 
+                        <ul class="sidebar__accordion-content active">
+                            <li><a href="alumni-dashboard.html" class="sidebar__nav-link"><img src="../images/icons/dashboard-black.png" alt="" class="sidebar__nav-icon">Dashboard</a></li>
+                            <li><a href="alumni-submit-feedback.html" class="sidebar__nav-link"><img src="../images/icons/submit-feedback-black.png" alt="" class="sidebar__nav-icon">Submit Feedback</a></li> 
+                            <li><a href="alumni-feedback-history.html" class="sidebar__nav-link sidebar__nav-link--active"><img src="../images/icons/history-red.png" alt="" class="sidebar__nav-icon">Feedback History</a></li> 
+                            <li><a href="alumni-settings.html" class="sidebar__nav-link"><img src="../images/icons/settings-black.png" alt="" class="sidebar__nav-icon">Settings</a></li> 
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar__footer">
+                Logged in as: <strong id="alumniIdentifierDisplay" class="sidebar__user-name">Alumnus</strong> 
+                <a href="#" id="alumniLogoutLink" class="btn btn--small btn--danger sidebar__logout-link">Logout</a>
+                <button id="darkModeToggle" class="btn btn--small btn--secondary sidebar__theme-toggle">
+                    Toggle Dark Mode
+                </button>
+            </div>
+        </aside>
+
+        <main class="content">
+            <header class="content__header">
+                <span id="sidebarToggle" class="content__sidebar-toggle">≡</span>
+                <h1 class="content__title">Your Feedback History (Alumni)</h1>
+            </header>
+
+            <section class="content__body">
+                <div class="table-container">
+                    <table id="alumniFeedbackHistoryTable" class="table"> 
+                        <thead class="table__header">
+                            <tr class="table__row">
+                                <th class="table__cell--header">Date Submitted</th>
+                                <th class="table__cell--header">Topic</th>
+                                <th class="table__cell--header">Status</th>
+                                <th class="table__cell--header">Roadmap</th>
+                                <th class="table__cell--header">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="alumniFeedbackHistoryBody" class="table__body"> 
+                            <tr class="table__row--no-data">
+                                <td colspan="5" class="table__cell no-data">No feedback submitted yet.</td> 
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+    <div class="overlay"></div>
+
+    <div id="viewAlumniFeedbackDetailsModal" class="modal">
+        <div class="modal__content">
+            <span class="modal__close-button" onclick="closeModal('viewAlumniFeedbackDetailsModal')">×</span>
+            <h3 class="modal__title">Your Feedback Details (Alumni)</h3>
+            <div id="alumniFeedbackDetailsContent" class="modal__body">
+                <p><strong>Date Submitted:</strong> <span id="alumniDetailDate"></span></p>
+                <p><strong>Topic:</strong> <span id="alumniDetailTopic"></span></p>
+                <p><strong>Your Details:</strong></p>
+                <p id="alumniDetailMessage" class="modal__text-block"></p>
+                <p><strong>Status:</strong> <span id="alumniDetailStatus"></span></p>
+                <p><strong>Roadmap:</strong> <span id="alumniDetailRoadmap"></span></p>
+                <hr id="alumniStaffMessageSeparator" class="separator" style="display: none;">
+                <div id="alumniStaffMessageArea" style="display: none;">
+                    <p><strong>Message from Staff:</strong></p>
+                    <p id="alumniDetailStaffMessage" class="modal__text-block modal__text-block--staff-reply"></p>
+                </div>
+            </div>
+            <div class="modal__actions">
+                <button type="button" class="btn btn--secondary" onclick="closeModal('viewAlumniFeedbackDetailsModal')">Close</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="editAlumniFeedbackModal" class="modal">
+        <div class="modal__content">
+            <span class="modal__close-button" onclick="closeModal('editAlumniFeedbackModal')">×</span>
+            <h3 class="modal__title">Edit Pending Feedback</h3>
+            <form id="editAlumniFeedbackForm" class="form modal__form">
+                 <input type="hidden" id="editAlumniFeedbackId">
+                 <div class="form__group">
+                    <label for="editAlumniFeedbackTopic" class="form__label">Topic:</label>
+                    <select id="editAlumniFeedbackTopic" class="form__select" required>
+                    </select>
+                </div>
+                
+                <div class="form__group">
+                    <label for="editAlumniFeedbackDetails" class="form__label">Details:</label>
+                    <textarea id="editAlumniFeedbackDetails" class="form__textarea" rows="5" required></textarea>
+                </div>
+                <div class="modal__actions">
+                    <button type="submit" class="btn btn--primary">Save Changes</button>
+                    <button type="button" class="btn btn--secondary" onclick="closeModal('editAlumniFeedbackModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div id="genericModal" class="modal">
+        <div class="modal__content">
+            <span class="modal__close-button" onclick="closeModal('genericModal')">×</span>
+            <h3 id="modalTitle" class="modal__title">Modal Title</h3>
+            <p id="modalMessage" class="modal__message">Modal message goes here.</p>
+            <div id="modalActions" class="modal__actions"></div>
+             <div id="modalPromptInputArea" class="modal__prompt-area" style="display: none;">
+                 <label id="modalPromptLabel" class="modal__prompt-label" for="modalPromptInput">Prompt:</label>
+                 <textarea id="modalPromptInput" class="modal__prompt-input" rows="3"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+</html>

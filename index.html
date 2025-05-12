@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - Feedback System</title>
+    <link rel="icon" type="image/x-icon" href="images/dcsa.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="body--public-page">
+    <header class="public-navbar">
+        <div class="public-navbar__container">
+            <a href="index.html" class="public-navbar__brand">
+                <img src="images/your-logo.png" alt="Online Feedback Management System Logo" class="main-header__logo">
+            </a>
+            <button id="navbarToggle" class="public-navbar__toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span class="public-navbar__toggle-icon"></span>
+                <span class="public-navbar__toggle-icon"></span>
+                <span class="public-navbar__toggle-icon"></span>
+            </button>
+            <nav id="navbarMenu" class="public-navbar__menu">
+                <ul class="public-navbar__menu-list">
+                    <li class="public-navbar__menu-item"><a href="index.html" class="public-navbar__menu-link">Home</a></li>
+                    <li class="public-navbar__menu-item"><a href="about.html" class="public-navbar__menu-link">About</a></li>
+                    <li class="public-navbar__menu-item"><a href="signup.html" class="public-navbar__menu-link">Register</a></li>
+                    <li class="public-navbar__menu-item dropdown">
+                        <a href="#" class="public-navbar__menu-link">Login ▾</a>
+                        <ul class="public-navbar__dropdown-menu">
+                            <li><a href="login.html">Student Login</a></li>
+                            <li><a href="alumni-login.html">Alumni Login</a></li>
+                            <li><a href="admin-login.html">Staff Login</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-content container">
+        <section class="page-section page-section--hero">
+            <div class="page-section__container">
+                <div class="page-section__column">
+                    <div class="page-section__text-content">
+                        <h2>Welcome to the Student Feedback Portal</h2>
+                        <p>Your voice matters! Share your feedback to help us improve.</p>
+                        <div class="page-section__actions">
+                            <a href="login.html" class="btn btn--primary">Login</a>
+                            <a href="signup.html" class="btn btn--secondary">Sign Up</a>
+                        </div>
+                        <p class="contact-info">
+                            If your feedback or account was unfairly deleted/handled, please contact <a href="mailto:dcsa-cal-fms@gmail.com">dcsa-cal-fms@gmail.com</a>.
+                        </p>
+                    </div>
+                </div>
+                <div class="page-section__column">
+                    <div class="page-section__media">
+                        <img src="images/welcome.png" alt="DCSA Caloocan Banner" class="page-section__image">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="page-section">
+            <div class="page-section__container page-section__container--reversed"> 
+                <div class="page-section__column"> 
+                    <div class="page-section__text-content">
+                        <h2>About Our System</h2>
+                        <p>Learn more about how our feedback system is designed to foster communication and improvement.</p>
+                        <div class="page-section__actions">
+                            <a href="about.html" class="btn btn--primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-section__column"> 
+                    <div class="page-section__media">
+                        <img src="images/about.png" alt="About the feedback system" class="page-section__image">
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="page-section page-section--highlight"> 
+            <div class="page-section__container">
+                <div class="page-section__column"> 
+                    <div class="page-section__text-content">
+                        <h2>Your Voice, Our Growth</h2>
+                        <p>Our Online Feedback Management System is designed to foster a collaborative environment where your valuable insights directly contribute to the continuous improvement of DCSA Caloocan for both students and the institution.</p>
+                        <ul>
+                            <li>Easily submit your thoughts, suggestions, and concerns through a user-friendly interface, ensuring your perspective is heard and considered.</li>
+                            <li>Keep track of your feedback's status and understand how DCSA Caloocan is addressing common themes, building trust and accountability.</li>
+                            <li>Share your feedback confidently within a secure platform designed to encourage honest, thoughtful, and helpful communication.</li>
+                            <li>By providing specific and constructive feedback, students, alumni, and staff makes a better, more responsive educational experience for everyone at DCSA Caloocan.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="main-footer__container container">
+            <p class="main-footer__text">© 2025 DCSA Caloocan - Online Feedback Management System. All rights reserved.</p>
+            <p class="main-footer__contact contact-info">
+                If your feedback or account was unfairly deleted/handled, please contact <a href="mailto:dcsa-cal-fms@gmail.com">dcsa-cal-fms@gmail.com</a>.
+            </p>
+        </div>
+    </footer>
+    
+    <div id="genericModal" class="modal">
+        <div class="modal__content">
+            <span class="modal__close-button" onclick="closeModal('genericModal')">×</span>
+            <h3 id="modalTitle" class="modal__title">Modal Title</h3>
+            <p id="modalMessage" class="modal__message">Modal message goes here.</p>
+            <div id="modalActions" class="modal__actions"></div>
+            <div id="modalPromptInputArea" class="modal__prompt-area" style="display: none;">
+                 <label id="modalPromptLabel" class="modal__prompt-label" for="modalPromptInput">Prompt:</label>
+                 <textarea id="modalPromptInput" class="modal__prompt-input" rows="3"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

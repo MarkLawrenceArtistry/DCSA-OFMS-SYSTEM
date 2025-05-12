@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Backup - Feedback System</title>
+    <link rel="icon" type="image/x-icon" href="../images/dcsa.png">
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body class="body--admin-page"> 
+    <div class="layout layout--admin">
+        <aside class="sidebar">
+            <div class="sidebar__header">
+                <a href="../index.html">
+                    <img src="../images/your-logo.png" alt="Logo" class="sidebar__logo">
+                </a>
+            </div>
+            <nav class="sidebar__nav">
+                <ul class="sidebar__nav-list">
+                    <li class="sidebar__nav-item">
+                        <button class="sidebar__accordion-toggle">Overview</button>
+                        <ul class="sidebar__accordion-content">
+                            <li><a href="admin-dashboard.html" class="sidebar__nav-link"><img src="../images/icons/dashboard-black.png" alt="" class="sidebar__nav-icon">Dashboard</a></li>
+                            <li><a href="admin-action-log.html" class="sidebar__nav-link"><img src="../images/icons/history-black.png" alt="" class="sidebar__nav-icon">Action Log</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar__nav-item">
+                        <button class="sidebar__accordion-toggle">Feedbacks</button>
+                        <ul class="sidebar__accordion-content">
+                            <li><a href="admin-feedbacks.html" class="sidebar__nav-link"><img src="../images/icons/manage-feedbacks-black.png" alt="" class="sidebar__nav-icon">Manage Feedbacks</a></li>
+                            <li><a href="admin-pinned-feedbacks.html" class="sidebar__nav-link"><img src="../images/icons/pinned-feedbacks-black.png" alt="" class="sidebar__nav-icon">Pinned Feedbacks</a></li>
+                            <li><a href="admin-feedbacks-recycle.html" class="sidebar__nav-link"><img src="../images/icons/recycle-bin-black.png" alt="" class="sidebar__nav-icon">Recycle Bin</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar__nav-item">
+                        <button class="sidebar__accordion-toggle">Users & Staff</button>
+                        <ul class="sidebar__accordion-content">
+                            <li><a href="admin-users-students.html" class="sidebar__nav-link"><img src="../images/icons/manage-students-black.png" alt="" class="sidebar__nav-icon">Manage Students</a></li>
+                            <li><a href="admin-users-alumni.html" class="sidebar__nav-link"><img src="../images/icons/manage-alumni-black.png" alt="" class="sidebar__nav-icon">Manage Alumni</a></li>
+                            <li class="admin-only"><a href="admin-users-staff.html" class="sidebar__nav-link"><img src="../images/icons/manage-staff-black.png" alt="" class="sidebar__nav-icon">Manage Staff</a></li>
+                            <li><a href="admin-users-recycle.html" class="sidebar__nav-link"><img src="../images/icons/recycle-bin-black.png" alt="" class="sidebar__nav-icon">Recycle Bin</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar__nav-item admin-only">
+                        <button class="sidebar__accordion-toggle active">Configuration</button>
+                        <ul class="sidebar__accordion-content active">
+                            <li><a href="admin-config.html" class="sidebar__nav-link"><img src="../images/icons/manage-config-black.png" alt="" class="sidebar__nav-icon">Manage Config</a></li>
+                            <li><a href="admin-backup.html" class="sidebar__nav-link sidebar__nav-link--active"><img src="../images/icons/backup-red.png" alt="" class="sidebar__nav-icon">Backup & Restore</a></li>
+                            <li><a href="admin-config-recycle.html" class="sidebar__nav-link"><img src="../images/icons/recycle-bin-black.png" alt="" class="sidebar__nav-icon">Recycle Bin</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar__nav-item">
+                        <a href="staff-settings.html" class="sidebar__nav-link staff-settings-button"><img src="../images/icons/settings-black.png" alt="" class="sidebar__nav-icon">Settings</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar__footer"> Logged in as: <strong id="adminUsernameDisplay" class="sidebar__user-name">Admin</strong> (<span id="adminRoleDisplay" class="sidebar__user-role">Role</span>) 
+                <a href="#" id="adminLogoutLink" class="btn btn--small btn--danger sidebar__logout-link">Logout</a> 
+                <button id="darkModeToggle" class="btn btn--small btn--secondary sidebar__theme-toggle">Toggle Dark Mode</button> 
+            </div>
+        </aside>
+
+        <main class="content">
+            <header class="content__header">
+                <div class="content__header-top">
+                    <span id="sidebarToggle" class="content__sidebar-toggle">≡</span>
+                    <div>
+                        <h1 class="content__title">System Backup & Restore (Admin Only)</h1>
+                        <p class="content__description">Export or import all system data.</p>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content__body backup">
+                <div class="backup-section"> 
+                    <h2>Export Data</h2>
+                    <p>Click the button below to generate the data. Manually copy the entire text from the box that appears.</p>
+                    <button id="exportButton" class="btn btn--primary">Generate Export Data</button>
+                    <textarea id="exportData" class="backup-section__textarea" readonly placeholder="Export data will appear here..."></textarea>
+                    <p><small>Store this copied text SECURELY in a plain text file (.txt) AND save it in your cloud drive like Google Drive.</small></p>
+                </div>
+
+                <div class="backup-section">
+                    <h2>Import Data</h2>
+                    <p class="warning">WARNING: Importing data will completely overwrite ALL current system data (users, feedback, settings, etc.). This action cannot be undone. Use with extreme caution!</p>
+                    <p>Paste the previously exported text data into the box below and click 'Import'.</p>
+                    <textarea id="importData" class="backup-section__textarea" placeholder="Paste your previously exported data here..."></textarea>
+                    <button id="importButton" class="btn btn--danger">Import Data (Overwrite Everything!)</button>
+                </div>
+            </section>
+        </main>
+    </div>
+    <div class="overlay"></div>
+
+    <div id="genericModal" class="modal">
+        <div class="modal__content">
+            <span class="modal__close-button" onclick="closeModal('genericModal')">×</span>
+            <h3 id="modalTitle" class="modal__title">Modal Title</h3>
+            <p id="modalMessage" class="modal__message">Modal message goes here.</p>
+            <div id="modalActions" class="modal__actions"></div>
+             <div id="modalPromptInputArea" class="modal__prompt-area" style="display: none;">
+                 <label id="modalPromptLabel" class="modal__prompt-label" for="modalPromptInput">Prompt:</label>
+                 <textarea id="modalPromptInput" class="modal__prompt-input" rows="3"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - Feedback System</title>
+    <link rel="icon" type="image/x-icon" href="../images/dcsa.png">
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body class="body--student-page"> 
+    <div class="layout layout--student">
+        <aside class="sidebar">
+            <div class="sidebar__header">
+                <a href="../index.html">
+                    <img src="../images/your-logo.png" alt="Online Feedback Management System Logo" class="sidebar__logo">
+                </a>
+            </div>
+            <nav class="sidebar__nav">
+                <ul class="sidebar__nav-list">
+                    <li class="sidebar__nav-item">
+                        <button class="sidebar__accordion-toggle active">Navigation</button> 
+                        <ul class="sidebar__accordion-content active">
+                            <li><a href="student-dashboard.html" class="sidebar__nav-link sidebar__nav-link--active"><img src="../images/icons/dashboard-red.png" alt="" class="sidebar__nav-icon">Dashboard</a></li>
+                            <li><a href="submit-feedback.html" class="sidebar__nav-link"><img src="../images/icons/submit-feedback-black.png" alt="" class="sidebar__nav-icon">Submit Feedback</a></li>
+                            <li><a href="feedback-history.html" class="sidebar__nav-link"><img src="../images/icons/history-black.png" alt="" class="sidebar__nav-icon">Feedback History</a></li>
+                            <li><a href="student-settings.html" class="sidebar__nav-link"><img src="../images/icons/settings-black.png" alt="" class="sidebar__nav-icon">Settings</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar__footer">
+                Logged in as: <strong id="studentUsernameDisplay" class="sidebar__user-name">Student</strong> 
+                <a href="#" id="studentLogoutLink" class="btn btn--small btn--danger sidebar__logout-link">Logout</a>
+                <button id="darkModeToggle" class="btn btn--small btn--secondary sidebar__theme-toggle">
+                    Toggle Dark Mode
+                </button>
+            </div>
+        </aside>
+        
+        <main class="content">
+            <header class="content__header">
+                <span id="sidebarToggle" class="content__sidebar-toggle">≡</span>
+                <h1 class="content__title">Welcome, <span id="studentNameDisplay">Student</span>!</h1>
+            </header>
+
+            <section class="content__body">
+                <p>This is your personal feedback dashboard.</p>
+                <div class="dashboard-quick-links"> 
+                    <a href="submit-feedback.html" class="btn btn--primary">Submit New Feedback</a>
+                    <a href="feedback-history.html" class="btn btn--secondary">View Your Feedback</a>
+                </div>
+                 <p class="contact-info">
+                    If your feedback or account was unfairly deleted/handled, please contact <a href="mailto:dcsa-cal-fms@gmail.com">dcsa-cal-fms@gmail.com</a>.
+                </p>
+            </section>
+        </main>
+    </div>
+    
+    <div class="overlay"></div>
+
+    <div id="genericModal" class="modal">
+        <div class="modal__content">
+            <span class="modal__close-button" onclick="closeModal('genericModal')">×</span>
+            <h3 id="modalTitle" class="modal__title">Modal Title</h3>
+            <p id="modalMessage" class="modal__message">Modal message goes here.</p>
+            <div id="modalActions" class="modal__actions"></div>
+             <div id="modalPromptInputArea" class="modal__prompt-area" style="display: none;">
+                 <label id="modalPromptLabel" class="modal__prompt-label" for="modalPromptInput">Prompt:</label>
+                 <textarea id="modalPromptInput" class="modal__prompt-input" rows="3"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div id="thankYouModal" class="modal">
+        <div class="modal__content">
+            <span class="modal__close-button" onclick="closeModal('thankYouModal')">×</span>
+            <h3 class="modal__title">Thank You!</h3>
+            <p class="modal__message">Your feedback has been submitted successfully.</p>
+            <div class="modal__actions">
+                <button class="btn btn--primary" onclick="closeModal('thankYouModal')">OK</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../script.js"></script>
+</body>
+</html>

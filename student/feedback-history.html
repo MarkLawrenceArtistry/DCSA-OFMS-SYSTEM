@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback History - Feedback System</title>
+    <link rel="icon" type="image/x-icon" href="../images/dcsa.png">
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body class="body--student-page"> 
+    <div class="layout layout--student"> 
+        <aside class="sidebar">
+            <div class="sidebar__header">
+                <a href="../index.html">
+                    <img src="../images/your-logo.png" alt="Online Feedback Management System Logo" class="sidebar__logo">
+                </a>
+            </div>
+            <nav class="sidebar__nav">
+                <ul class="sidebar__nav-list">
+                    <li class="sidebar__nav-item">
+                        <button class="sidebar__accordion-toggle active">Navigation</button> 
+                        <ul class="sidebar__accordion-content active">
+                            <li><a href="student-dashboard.html" class="sidebar__nav-link"><img src="../images/icons/dashboard-black.png" alt="" class="sidebar__nav-icon">Dashboard</a></li>
+                            <li><a href="submit-feedback.html" class="sidebar__nav-link"><img src="../images/icons/submit-feedback-black.png" alt="" class="sidebar__nav-icon">Submit Feedback</a></li>
+                            <li><a href="feedback-history.html" class="sidebar__nav-link sidebar__nav-link--active"><img src="../images/icons/history-red.png" alt="" class="sidebar__nav-icon">Feedback History</a></li>
+                            <li><a href="student-settings.html" class="sidebar__nav-link"><img src="../images/icons/settings-black.png" alt="" class="sidebar__nav-icon">Settings</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar__footer">
+                Logged in as: <strong id="studentUsernameDisplay" class="sidebar__user-name">Student</strong> 
+                <a href="#" id="studentLogoutLink" class="btn btn--small btn--danger sidebar__logout-link">Logout</a>
+                <button id="darkModeToggle" class="btn btn--small btn--secondary sidebar__theme-toggle">
+                    Toggle Dark Mode
+                </button>
+            </div>
+        </aside>
+
+        <main class="content">
+            <header class="content__header">
+                <span id="sidebarToggle" class="content__sidebar-toggle">≡</span>
+                <h1 class="content__title">Your Feedback History</h1>
+            </header>
+
+            <section class="content__body">
+                <div class="table-container">
+                    <table id="feedbackHistoryTable" class="table">
+                        <thead class="table__header">
+                            <tr class="table__row">
+                                <th class="table__cell--header">Date Submitted</th>
+                                <th class="table__cell--header">Topic</th>
+                                <th class="table__cell--header">Status</th>
+                                <th class="table__cell--header">Roadmap</th>
+                                <th class="table__cell--header">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="feedbackHistoryBody" class="table__body">
+                             <tr class="table__row--no-data">
+                                <td colspan="5" class="table__cell no-data">No feedback submitted yet.</td> 
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+    <div class="overlay"></div>
+
+    <div id="viewStudentFeedbackDetailsModal" class="modal">
+        <div class="modal__content">
+            <span class="modal__close-button" onclick="closeModal('viewStudentFeedbackDetailsModal')">×</span>
+            <h3 class="modal__title">Your Feedback Details</h3>
+            <div id="studentFeedbackDetailsContent" class="modal__body">
+                <p><strong>Date Submitted:</strong> <span id="studentDetailDate"></span></p>
+                <p><strong>Topic:</strong> <span id="studentDetailTopic"></span></p>
+                <p><strong>Your Details:</strong></p>
+                <p id="studentDetailMessage" class="modal__text-block"></p>
+                <p><strong>Status:</strong> <span id="studentDetailStatus"></span></p>
+                <p><strong>Roadmap:</strong> <span id="studentDetailRoadmap"></span></p>
+                <hr id="staffMessageSeparator" class="separator" style="display: none;"> 
+                <div id="staffMessageArea" style="display: none;"> 
+                    <p><strong>Message from Staff:</strong></p>
+                    <p id="studentDetailStaffMessage" class="modal__text-block modal__text-block--staff-reply"></p>
+                </div>
+            </div>
+             <div class="modal__actions">
+                <button type="button" class="btn btn--secondary" onclick="closeModal('viewStudentFeedbackDetailsModal')">Close</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="editFeedbackModal" class="modal">
+        <div class="modal__content">
+            <span class="modal__close-button" onclick="closeModal('editFeedbackModal')">×</span>
+            <h3 class="modal__title">Edit Pending Feedback</h3>
+            <form id="editFeedbackForm" class="form modal__form">
+                 <input type="hidden" id="editFeedbackId">
+                 <div class="form__group">
+                    <label for="editFeedbackTopic" class="form__label">Topic:</label>
+                    <select id="editFeedbackTopic" class="form__select" required>
+                    </select>
+                </div>
+                <div class="form__group">
+                    <label for="editFeedbackDetails" class="form__label">Details:</label>
+                    <textarea id="editFeedbackDetails" class="form__textarea" rows="5" required></textarea>
+                </div>
+                <div class="modal__actions">
+                    <button type="submit" class="btn btn--primary">Save Changes</button>
+                    <button type="button" class="btn btn--secondary" onclick="closeModal('editFeedbackModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div id="genericModal" class="modal">
+        <div class="modal__content">
+            <span class="modal__close-button" onclick="closeModal('genericModal')">×</span>
+            <h3 id="modalTitle" class="modal__title">Modal Title</h3>
+            <p id="modalMessage" class="modal__message">Modal message goes here.</p>
+            <div id="modalActions" class="modal__actions"></div>
+             <div id="modalPromptInputArea" class="modal__prompt-area" style="display: none;">
+                 <label id="modalPromptLabel" class="modal__prompt-label" for="modalPromptInput">Prompt:</label>
+                 <textarea id="modalPromptInput" class="modal__prompt-input" rows="3"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+</html>
